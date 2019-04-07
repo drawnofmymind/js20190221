@@ -1,6 +1,6 @@
-import Filter from "./Filter.js"
-import PhonesCatalog from "./PhonesCatalog.js"
-import ShoppingCart from "./ShoppingCart"
+import Filter from "./Filter.js";
+import PhonesCatalog from "./PhonesCatalog.js";
+import ShoppingCart from "./ShoppingCart.js";
 
 export default class PhonesPage {
     constructor(element) {
@@ -27,7 +27,7 @@ export default class PhonesPage {
   
      <!--Main content-->
      <div class="col-md-10">
-       
+     <div data-component = "PhonesCatalog"></div>
      </div>
   `;
     }
