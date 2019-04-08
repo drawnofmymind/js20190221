@@ -10,7 +10,7 @@ export default class PhonesCatalog {
     }
     const phoneId = link.dataset.phoneId;
      this.props.onPhoneSelected(phoneId);
-   })
+   });
 }
   render() {
    this.element.innerHTML = `

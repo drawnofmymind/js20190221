@@ -2,7 +2,7 @@ import Filter from "./Filter.js";
 import PhonesCatalog from "./PhonesCatalog.js";
 import ShoppingCart from "./ShoppingCart.js";
 import PhoneViewer from "./PhoneViewer.js";
-import {getAll,getById} from '../api/phones.js';
+import {getAll,getById} from "../api/phones.js";
 
 
 export default class PhonesPage {
@@ -15,17 +15,19 @@ export default class PhonesPage {
 
      this.render();
   }
-  setState(newState){
+
+  setState(newState) {
     this.state = {
       ...this.state,
       ...newState,
     };
-     
+
     this.render();
   }
+
   initComponent(Constructor,props = {}){
     const componentName = Constructor.name;
-    const element = this.element.querySelector(`[data-component="${Constructor.name}"]`)
+    const element = this.element.querySelector(`[data-component="${componentName}"]`)
     if(element){
       new Constructor (element,props);
     }
@@ -47,7 +49,12 @@ export default class PhonesPage {
 
   <!--Main content-->
   <div class="col-md-10">
-  ${this.state.selectedPhone ? `<div data-component = "PhoneViewer"></div>` : `<div data-component = "PhonesCatalog"> </div>`}
+  ${this.state.selectedPhone ? `
+  <div data-component = "PhoneViewer"></div>` 
+    : 
+    `
+    <div data-component = "PhonesCatalog"> </div>
+    `}
   </div>
 `;
 
@@ -55,15 +62,15 @@ this.initComponent(PhonesCatalog,{
   phones: this.state.phones,
   onPhoneSelected: (phoneId) =>{
     this.setState({
-      selectedPhone: getById(phoneId)
+      selectedPhone: getById(phoneId),
     })
   }
 });
+
 this.initComponent(PhoneViewer,{
-   phone: this.state.selectedPhone
-});
+   phone: this.state.selectedPhone,
+})
 this.initComponent(Filter);
-this.initComponent(PhoneViewer);
-this.initComponent(ShoppingCart)
+this.initComponent(ShoppingCart);
   }
 }

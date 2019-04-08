@@ -215,13 +215,18 @@ const phoneDetails = {
     "storage": {
         "flash": "126MB", 
         "ram": "256MB"
-    }
+    },
+    
+    
+    
 };
 
 export const getAll = () =>{
     return phonesFromServer
-}
+};
 
 export const getById = (phoneId)=>{
     return phoneDetails
 }
+
+
