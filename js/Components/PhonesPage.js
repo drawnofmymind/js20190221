@@ -8,6 +8,7 @@ import {getAll,getById} from "../api/phones.js";
 export default class PhonesPage {
     constructor(element) {
      this.element = element;
+
      this.state = {
       phones: getAll(),
       selectedPhone: null,
@@ -21,10 +22,14 @@ export default class PhonesPage {
       ...this.state,
       ...newState,
     };
-
     this.render();
   }
-
+  setState2(newState) {
+    this.state = {
+      ...newState,
+    };
+    this.render();
+  }
   initComponent(Constructor,props = {}){
     const componentName = Constructor.name;
     const element = this.element.querySelector(`[data-component="${componentName}"]`)
@@ -69,8 +74,18 @@ this.initComponent(PhonesCatalog,{
 
 this.initComponent(PhoneViewer,{
    phone: this.state.selectedPhone,
+   returnBackToMainPage: () => {
+    this.setState2({
+      phones: getAll(),
+    })
+   }
 })
 this.initComponent(Filter);
 this.initComponent(ShoppingCart);
   }
 }
+
+// this.state = {
+//   phones: getAll(),
+//   selectedPhone: null,
+//  };

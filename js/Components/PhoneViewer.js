@@ -3,6 +3,13 @@ export default class PhoneViewer {
    this.element = element; 
    this.props = props;
    this.render();
+   this.element.addEventListener('click', (event)=>{
+      const link = event.target.closest('[data-element = "returnBack"]');
+      if(!link){
+        return ;
+      }
+      this.props.returnBackToMainPage();
+   });
 }
   render() {
    const {phone} = this.props;
@@ -31,4 +38,5 @@ export default class PhoneViewer {
       </div>
 `;
   }
+
 }
