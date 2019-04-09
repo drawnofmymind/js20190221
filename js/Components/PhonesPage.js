@@ -12,6 +12,7 @@ export default class PhonesPage {
      this.state = {
       phones: getAll(),
       selectedPhone: null,
+      items:[],
      };
 
      this.render();
@@ -24,18 +25,14 @@ export default class PhonesPage {
     };
     this.render();
   }
-  setState2(newState) {
-    this.state = {
-      ...newState,
-    };
-    this.render();
-  }
+
   initComponent(Constructor,props = {}){
     const componentName = Constructor.name;
     const element = this.element.querySelector(`[data-component="${componentName}"]`)
     if(element){
       new Constructor (element,props);
     }
+  
   }
   render(){
   this.element.innerHTML = `
@@ -58,7 +55,7 @@ export default class PhonesPage {
   <div data-component = "PhoneViewer"></div>` 
     : 
     `
-    <div data-component = "PhonesCatalog"> </div>
+  <div data-component = "PhonesCatalog"> </div>
     `}
   </div>
 `;
@@ -74,18 +71,15 @@ this.initComponent(PhonesCatalog,{
 
 this.initComponent(PhoneViewer,{
    phone: this.state.selectedPhone,
-   returnBackToMainPage: () => {
-    this.setState2({
-      phones: getAll(),
+   onBack: () => {
+    this.setState({
+      selectedPhone: null,
     })
-   }
+   },
 })
+
 this.initComponent(Filter);
 this.initComponent(ShoppingCart);
   }
 }
 
-// this.state = {
-//   phones: getAll(),
-//   selectedPhone: null,
-//  };

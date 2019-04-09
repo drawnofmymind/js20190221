@@ -4,13 +4,14 @@ export default class PhoneViewer {
    this.props = props;
    this.render();
    this.element.addEventListener('click', (event)=>{
-      const link = event.target.closest('[data-element = "returnBack"]');
-      if(!link){
+      const button = event.target.closest('[data-element = "onBack"]');
+      if(!button){
         return ;
       }
-      this.props.returnBackToMainPage();
+      this.props.onBack();
    });
 }
+
   render() {
    const {phone} = this.props;
    this.element.innerHTML = `
@@ -18,7 +19,7 @@ export default class PhoneViewer {
         <img class="phone" src="${phone.images[0]}">
     
         <button
-        data-element = "returnBack"
+        data-element = "onBack"
         >Back
         </button>
         <button>Add to basket</button>
@@ -30,7 +31,9 @@ export default class PhoneViewer {
         <ul class="phone-thumbs">
           ${phone.images.map(item=> `
          <li>
-         <img src="${item}">
+         <img src="${item}" 
+         data-element ="image"
+         >
         </li>
         `).join('')}
         </ul>
