@@ -1,27 +1,28 @@
-export default class PhoneViewer {
+import Component from "../Component.js";
+export default class PhoneViewer extends Component{
   constructor(element,props) {
-   this.element = element; 
-   this.props = props;
+   super(element,props);
    this.render();
-   this.element.addEventListener('click', (event)=>{
-      const button = event.target.closest('[data-element = "onBack"]');
-      if(!button){
-        return ;
-      }
-      this.props.onBack();
-   });
-}
 
+   this.on('click','BackButton', () => {
+     this.props.onBack();
+   });
+
+   this.on('click','AddButton', () => {
+    this.props.onAdd(this.props.phone.id);
+  });
+}
   render() {
    const {phone} = this.props;
    this.element.innerHTML = `
         <div>
         <img class="phone" src="${phone.images[0]}">
         <button
-        data-element = "onBack"
+        data-element = "BackButton"
         >Back
         </button>
-        <button>Add to basket</button>
+        <button
+        data-element = "AddButton">Add to basket</button>
     
     
         <h1>${phone.name}</h1>
@@ -39,5 +40,4 @@ export default class PhoneViewer {
       </div>
 `;
   }
-
 }
