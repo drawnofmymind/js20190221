@@ -17,7 +17,6 @@ export default class PhoneViewer {
    this.element.innerHTML = `
         <div>
         <img class="phone" src="${phone.images[0]}">
-    
         <button
         data-element = "onBack"
         >Back
@@ -26,7 +25,6 @@ export default class PhoneViewer {
     
     
         <h1>${phone.name}</h1>
-    
         <p>${ phone.description }</p>
         <ul class="phone-thumbs">
           ${phone.images.map(item=> `

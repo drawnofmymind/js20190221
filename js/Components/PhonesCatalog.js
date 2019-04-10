@@ -1,7 +1,7 @@
-export default class PhonesCatalog {
+import Component from "../Component.js";
+export default class PhonesCatalog extends Component{
   constructor(element,props) {
-   this.element = element; 
-   this.props = props;
+   super(element,props)
    this.render();
    this.element.addEventListener('click', (event)=>{
     const link  = event.target.closest('[data-element ="PhoneLink"]');
@@ -11,6 +11,10 @@ export default class PhonesCatalog {
     const phoneId = link.dataset.phoneId;
      this.props.onPhoneSelected(phoneId);
    });
+   this.on('click', 'PhoneLink', (event)=>{
+     const phoneId = event.delegateTarget.dataset.phoneId;
+     this.props.onPhoneSelected(phoneId)
+   })
 }
   render() {
    this.element.innerHTML = `
