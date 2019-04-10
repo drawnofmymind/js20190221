@@ -15,7 +15,38 @@ export default class PhonesPage extends Component{
 
      this.render();
   }
+  init(){
+        
+    this.initComponent(PhonesCatalog,{
+      phones: this.state.phones,
+      onPhoneSelected: (phoneId) =>{
+        this.setState({
+          selectedPhone: getById(phoneId),
+        })
+      },
+      onAdd: (phoneId) =>{
+          this.setState({
+            items:[...this.state.items, phoneId]
+          });
+        }
+    });
+    this.initComponent(PhoneViewer,{
+      phone: this.state.selectedPhone,
+      onBack: () => {
+        this.setState({
+          selectedPhone: null,
+        });
+      },
+      onAdd: (phoneId) =>{
+        this.setState({
+          items:[...this.state.items, phoneId]
+        });
+      }
+    });
 
+    this.initComponent(Filter);
+    this.initComponent(ShoppingCart,{items:this.state.items});
+  }
   render(){
   this.element.innerHTML = `
   <div class="row">
@@ -41,36 +72,7 @@ export default class PhonesPage extends Component{
     `}
   </div>
 `;
-
-this.initComponent(PhonesCatalog,{
-  phones: this.state.phones,
-  onPhoneSelected: (phoneId) =>{
-    this.setState({
-      selectedPhone: getById(phoneId),
-    })
-  },
-  onAdd: (phoneId) =>{
-      this.setState({
-        items:[...this.state.items, phoneId]
-      });
-    }
- });
-this.initComponent(PhoneViewer,{
-   phone: this.state.selectedPhone,
-   onBack: () => {
-    this.setState({
-      selectedPhone: null,
-    });
-   },
-   onAdd: (phoneId) =>{
-     this.setState({
-       items:[...this.state.items, phoneId]
-     });
-   }
-});
-
-this.initComponent(Filter);
-this.initComponent(ShoppingCart,{items:this.state.items});
+this.init()
   }
 }
 
