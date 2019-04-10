@@ -15,13 +15,7 @@ export default class PhonesPage extends Component{
 
      this.render();
   }
-  setState(newState) {
-    this.state = {
-    ...this.state,
-    ...newState,
-    };
-    this.render()
-}
+
   render(){
   this.element.innerHTML = `
   <div class="row">
@@ -54,9 +48,13 @@ this.initComponent(PhonesCatalog,{
     this.setState({
       selectedPhone: getById(phoneId),
     })
-  }
-});
-
+  },
+  onAdd: (phoneId) =>{
+      this.setState({
+        items:[...this.state.items, phoneId]
+      });
+    }
+ });
 this.initComponent(PhoneViewer,{
    phone: this.state.selectedPhone,
    onBack: () => {
