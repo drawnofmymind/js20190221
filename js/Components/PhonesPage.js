@@ -10,43 +10,77 @@ export default class PhonesPage extends Component{
      this.state = {
       phones: getAll(),
       selectedPhone: null,
-      items:[],
+      items:{
+        "qweqw": '1',
+        "qweqwsfa": '2'
+      },
      };
 
      this.render();
   }
-  init(){
-        
+  addItem(item){
+      const oldItems = this.state.items;
+      const items = {
+        ...oldItems ,
+        [item]: oldItems[item] ? oldItems[item] + 1 : 1,
+      };
+      this.setState({
+        items: items
+      });
+  }
+
+  removeItem(itemToRemove){
+    const newItems = this.state.items;
+    delete newItems[itemToRemove];
+    this.setState({
+      items: newItems
+    });
+  }
+
+
+  selectedPhone(phoneId){
+    this.setState({
+      selectedPhone: getById(phoneId)
+    })
+  }
+
+  unselectedPhone(){
+    this.setState({
+      selectedPhone: null
+    })
+  }
+
+
+
+
+  init(){ 
     this.initComponent(PhonesCatalog,{
       phones: this.state.phones,
       onPhoneSelected: (phoneId) =>{
-        this.setState({
-          selectedPhone: getById(phoneId),
-        })
+        this.selectedPhone(phoneId)
       },
       onAdd: (phoneId) =>{
-          this.setState({
-            items:[...this.state.items, phoneId]
-          });
-        }
+        this.addItem(phoneId)
+     }
     });
     this.initComponent(PhoneViewer,{
       phone: this.state.selectedPhone,
       onBack: () => {
-        this.setState({
-          selectedPhone: null,
-        });
+        this.unselectedPhone();
       },
       onAdd: (phoneId) =>{
-        this.setState({
-          items:[...this.state.items, phoneId]
-        });
+       this.addItem(phoneId);
       }
     });
-
-    this.initComponent(Filter);
-    this.initComponent(ShoppingCart,{items:this.state.items});
-  }
+    this.initComponent(ShoppingCart,{
+      items: this.state.items,
+      onRemove: (itemToRemove) =>{
+        this.removeItem(itemToRemove);
+      },
+      });
+      this.initComponent(Filter);
+    }
+  
   render(){
   this.element.innerHTML = `
   <div class="row">
@@ -72,7 +106,7 @@ export default class PhonesPage extends Component{
     `}
   </div>
 `;
-this.init()
+  this.init()
   }
 }
 

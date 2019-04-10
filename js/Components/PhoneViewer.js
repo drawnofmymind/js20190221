@@ -17,7 +17,7 @@ export default class PhoneViewer extends Component{
   this.on('click','SmallImage', (event) => {
     const imageUrl = event.delegateTarget.dataset.imageUrl;
     this.setState({
-      selectedImage:imageUrl
+      selectedImage: imageUrl
     })
   });
 }
